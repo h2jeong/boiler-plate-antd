@@ -9,6 +9,7 @@ import { Layout } from "antd";
 
 import NavBar from "./views/NavBar/NavBar";
 import SideBar from "./views/SideBar/SideBar";
+import VideoUploadPage from "./views/VideoUploadPage/VideoUploadPage";
 
 const { Content } = Layout;
 
@@ -27,7 +28,8 @@ function App() {
                   padding: 24,
                   margin: 0,
                   minHeight: 280,
-                  backgroundColor: "#fff"
+                  backgroundColor: "#fff",
+                  overflow: "auto"
                 }}
               >
                 <Switch>
@@ -41,6 +43,11 @@ function App() {
                     exact
                     path="/register"
                     component={Auth(RegisterPage, false)}
+                  />
+                  <Route
+                    exact
+                    path="/video/upload"
+                    component={Auth(VideoUploadPage, true)}
                   />
                 </Switch>
               </Content>

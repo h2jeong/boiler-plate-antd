@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { withRouter } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { loginUser } from "../../../_actions/user_actions";
@@ -9,9 +9,9 @@ function LoginPage(props) {
   const dispatch = useDispatch();
 
   const onFinish = values => {
-    console.log("Success:", values);
+    // console.log("Success:", values);
     dispatch(loginUser(values)).then(res => {
-      console.log(res.payload);
+      // console.log(res.payload);
       if (res.payload.loginSuccess) {
         props.history.push("/");
       } else {

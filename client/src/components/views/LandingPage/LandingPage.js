@@ -1,5 +1,5 @@
 import React from "react";
-import Axios from "axios";
+// import Axios from "axios";
 import { withRouter } from "react-router-dom";
 
 function LandingPage(props) {
