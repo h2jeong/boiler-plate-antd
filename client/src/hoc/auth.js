@@ -23,7 +23,7 @@ export default function(SpecificComponent, option, adminRoute = null) {
           if (option) props.history.push("/login");
         }
       });
-    }, []);
+    }, [dispatch, props.history]);
 
     return <SpecificComponent {...props} user={user} />;
   }

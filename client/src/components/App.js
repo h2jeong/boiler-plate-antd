@@ -8,8 +8,9 @@ import Auth from "../hoc/auth";
 import { Layout } from "antd";
 
 import NavBar from "./views/NavBar/NavBar";
-import SideBar from "./views/SideBar/SideBar";
+// import SideBar from "./views/SideBar/SideBar";
 import VideoUploadPage from "./views/VideoUploadPage/VideoUploadPage";
+import VideoDetailPage from "./views/VideoDetailPage.js/VideoDetailPage";
 
 const { Content } = Layout;
 
@@ -20,8 +21,8 @@ function App() {
         <Layout>
           <NavBar />
           <Layout style={{ padding: "24px", height: "calc(100vh - 64px)" }}>
-            <SideBar />
-            <Layout style={{ paddingLeft: "24px" }}>
+            {/* <SideBar /> */}
+            <Layout>
               <Content
                 className="site-layout-background"
                 style={{
@@ -48,6 +49,11 @@ function App() {
                     exact
                     path="/video/upload"
                     component={Auth(VideoUploadPage, true)}
+                  />
+                  <Route
+                    exact
+                    path="/video/:videoId"
+                    component={Auth(VideoDetailPage, null)}
                   />
                 </Switch>
               </Content>

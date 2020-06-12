@@ -4,6 +4,7 @@ import "./NavBar.css";
 import { withRouter } from "react-router-dom";
 import Axios from "axios";
 import { useSelector } from "react-redux";
+import { UploadOutlined } from "@ant-design/icons";
 
 function RightMenu(props) {
   let user = useSelector(state => state.user);
@@ -29,8 +30,13 @@ function RightMenu(props) {
   } else {
     return (
       <Menu theme="dark" mode="horizontal" className="menu_header menu_user">
+        <Menu.Item key="create">
+          <a href="/video/upload">
+            <UploadOutlined />
+          </a>
+        </Menu.Item>
         <Menu.Item key="logout">
-          <a onClick={logoutHandler}>Logout</a>
+          <span onClick={logoutHandler}>Logout</span>
         </Menu.Item>
       </Menu>
     );

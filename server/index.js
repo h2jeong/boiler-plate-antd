@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-mongoose
+const connect = mongoose
   .connect(config.mongoURI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
@@ -23,7 +23,6 @@ mongoose
   .catch(err => console.log(err));
 
 app.get("/", (req, res) => res.send("Hello World!"));
-
 app.get("/api/hello", (req, res) => res.send("안녕"));
 
 app.use("/api/users", require("./routes/users"));

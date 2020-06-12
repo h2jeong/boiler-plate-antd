@@ -8,6 +8,10 @@
 
 .site-layout-background {
   background: #fff;
+  -ms-overflow-style: none;
+}
+.site-layout-background::-webkit-scrollbar {
+  display: none;
 }
 
 @media (prefers-reduced-motion: no-preference) {

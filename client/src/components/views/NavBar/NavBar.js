@@ -19,11 +19,11 @@ function NavBar() {
         }}
       />
       <Menu theme="dark" mode="horizontal" className="menu_header">
-        <Menu.Item key="1">
-          <a href="/">Blogs</a>
+        <Menu.Item key="mail">
+          <a href="/">Home</a>
         </Menu.Item>
-        <Menu.Item key="2">
-          <a href="/video/upload">Video</a>
+        <Menu.Item key="subscription">
+          <a href="/subscription">Subscription</a>
         </Menu.Item>
       </Menu>
       <RightMenu />
