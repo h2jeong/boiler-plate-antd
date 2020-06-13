@@ -38,7 +38,7 @@ router.post("/uploadFiles", (req, res) => {
 
 router.post("/thumbnail", (req, res) => {
   console.log("/thumbnail");
-  let filePath = "";
+  let thumbnailPath = "";
   let fileDuration = "";
 
   // 비디오 정보 가져오기
@@ -51,20 +51,20 @@ router.post("/thumbnail", (req, res) => {
   ffmpeg(req.body.filePath)
     .on("filenames", function(filenames) {
       console.log("Will generate filenames - ", filenames.join(", "));
-      filePath = "uploads/thumbNails/" + filenames[0];
+      thumbnailPath = "uploads/thumbNails/" + filenames[0];
     })
     .on("end", function() {
       console.log("Screenshots taken");
       return res.json({
         success: true,
-        filePath: filePath,
+        thumbnailPath: thumbnailPath,
         fileDuration: fileDuration
       });
     })
-    // .on("error", function(err) {
-    //   console.log(err);
-    //   return res.json({ success: false, err });
-    // })
+    .on("error", function(err) {
+      console.log(err, err.response);
+      return res.json({ success: false, err });
+    })
     .screenshots({
       // Will take screens at 20%, 40%, 60% and 80% of the video
       count: 3,
@@ -78,29 +78,28 @@ router.post("/thumbnail", (req, res) => {
 router.post("/uploadVideo", (req, res) => {
   const video = new Video(req.body);
   console.log("video:", video);
-  video.save((err, video) => {
+  video.save((err, doc) => {
     if (err) return res.status(400).json({ success: false, err });
-    return res.status(200).json({ success: true });
+    res.status(200).json({ success: true });
   });
 });
 
-router.post("/getVideos", (req, res) => {
+router.get("/getVideos", (req, res) => {
   Video.find()
     .populate("writer")
     .exec((err, videos) => {
       if (err) return res.status(400).send(err);
-      return res.status(200).json({ success: true, videos });
+      res.status(200).json({ success: true, videos });
     });
 });
 
 router.post("/getVideoDetail", (req, res) => {
   console.log(req.body);
-  let videoId = req.body.videoId;
-  Video.findOne({ _id: videoId })
+  Video.findOne({ _id: req.body.videoId })
     .populate("writer")
     .exec((err, videoDetail) => {
       if (err) return res.status(400).send(err);
-      return res.status(200).json({ success: true, videoDetail });
+      res.status(200).json({ success: true, videoDetail });
     });
 });
 

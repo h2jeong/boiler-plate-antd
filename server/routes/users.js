@@ -33,7 +33,7 @@ router.post("/login", (req, res) => {
 
       user.generateToken((err, user) => {
         if (err) return res.status(400).send(err);
-
+        res.cookie("x_authExp", user.tokenExp);
         res
           .cookie("x_auth", user.token)
           .status(200)
@@ -44,10 +44,14 @@ router.post("/login", (req, res) => {
 });
 // logout
 router.get("/logout", auth, (req, res) => {
-  User.findOneAndUpdate({ _id: req.user._id }, { token: "" }, (err, user) => {
-    if (err) return res.json({ success: false, err });
-    return res.status(200).json({ success: true });
-  });
+  User.findOneAndUpdate(
+    { _id: req.user._id },
+    { token: "", tokenExp: "" },
+    (err, user) => {
+      if (err) return res.json({ success: false, err });
+      return res.status(200).json({ success: true });
+    }
+  );
 });
 // auth
 router.get("/auth", auth, (req, res) => {

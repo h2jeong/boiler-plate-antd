@@ -1,23 +1,10 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { loginUser } from "../../../_actions/user_actions";
 import { Form, Input, Button, Checkbox } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
 
-function LoginPage(props) {
-  const dispatch = useDispatch();
-
+function LoginPage() {
   const onFinish = values => {
     // console.log("Success:", values);
-    dispatch(loginUser(values)).then(res => {
-      // console.log(res.payload);
-      if (res.payload.loginSuccess) {
-        props.history.push("/");
-      } else {
-        alert(res.payload.message);
-      }
-    });
   };
 
   return (
@@ -76,4 +63,4 @@ function LoginPage(props) {
   );
 }
 
-export default withRouter(LoginPage);
+export default LoginPage;

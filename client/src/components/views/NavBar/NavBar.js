@@ -23,7 +23,7 @@ function NavBar() {
           <a href="/">Home</a>
         </Menu.Item>
         <Menu.Item key="subscription">
-          <a href="/subscription">Subscription</a>
+          <a href>Subscription</a>
         </Menu.Item>
       </Menu>
       <RightMenu />
