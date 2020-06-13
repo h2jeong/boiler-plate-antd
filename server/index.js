@@ -12,20 +12,17 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
-const connect = mongoose
+mongoose
   .connect(config.mongoURI, {
     useNewUrlParser: true,
-    useUnifiedTopology: true,
+    useFindAndModify: false,
     useCreateIndex: true,
-    useFindAndModify: false
+    useUnifiedTopology: true
   })
-  .then(() => console.log("MongoDB connected..."))
-  .catch(err => console.log(err));
+  .then(() => console.log("Successfully connected to mongodb"))
+  .catch(e => console.error(e));
 
 app.get("/", (req, res) => res.send("Hello World!"));
-
-app.use("/api/users", require("./routes/users"));
-app.use("/api/video", require("./routes/video"));
 
 app.listen(port, () =>
   console.log(`Example app listening at http://localhost:${port}`)

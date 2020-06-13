@@ -4,7 +4,7 @@ import "./App.css";
 const { Content } = Layout;
 
 function App() {
-  return <></>;
+  return <>APP</>;
 }
 
 export default App;
