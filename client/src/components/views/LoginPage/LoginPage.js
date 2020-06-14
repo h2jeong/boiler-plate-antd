@@ -12,8 +12,7 @@ function LoginPage() {
       style={{
         display: "flex",
         justifyContent: "center",
-        alignItems: "center",
-        height: "100%"
+        alignItems: "center"
       }}
     >
       <Form

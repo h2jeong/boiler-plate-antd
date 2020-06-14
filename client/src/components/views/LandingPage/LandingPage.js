@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 
 import Meta from "antd/lib/card/Meta";
 import { Avatar, Col, Row } from "antd";
 import Title from "antd/lib/typography/Title";
 
 function LandingPage() {
+  const Videos = [];
   const renderCards = Videos.map((video, idx) => {
     return (
       <Col lg={6} md={8} xs={24} key={idx}>

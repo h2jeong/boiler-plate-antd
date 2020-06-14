@@ -1,7 +1,7 @@
 import React from "react";
-
 import { Form, Input, Tooltip, Row, Col, Button } from "antd";
 import { QuestionCircleOutlined } from "@ant-design/icons";
+import axios from "axios";
 
 const formItemLayout = {
   labelCol: {
@@ -25,16 +25,26 @@ const tailFormItemLayout = {
     }
   }
 };
-function RegisterPage() {
-  const onFinish = values => {};
+function RegisterPage(props) {
+  const [form] = Form.useForm();
+  const onFinish = values => {
+    console.log("Received values of form: ", values);
+    axios.post("/api/users/register", values).then(res => {
+      console.log(res.data);
+      if (res.data.success) {
+        props.history.push("/");
+      } else {
+        alert("Failed to Register. ", res.data.err);
+      }
+    });
+  };
 
   return (
     <div
       style={{
         display: "flex",
         justifyContent: "center",
-        alignItems: "center",
-        height: "100%"
+        alignItems: "center"
       }}
     >
       <Form
