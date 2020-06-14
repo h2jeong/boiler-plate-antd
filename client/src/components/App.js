@@ -1,10 +1,10 @@
 import React from "react";
 import "./App.css";
 
-const { Content } = Layout;
+//const { Content } = Layout;
 
 function App() {
-  return <>APP</>;
+  return <div>APP hi</div>;
 }
 
 export default App;
