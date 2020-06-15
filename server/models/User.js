@@ -80,9 +80,25 @@ userSchema.methods.generateToken = function(cb) {
   jwt.sign({ _id: user._id }, "secret", (err, token) => {
     if (err) return cb(err);
 
-    // 스키마에 넣어주기
+    // DB에 넣어주기
     user.token = token;
     user.save((err, user) => {
+      if (err) return cb(err);
+      cb(null, user);
+    });
+  });
+};
+
+userSchema.statics.findByToken = function(token, cb) {
+  let user = this;
+  // 인증처리 - 클라이언트 쿠키에서 저장된 Token을 이용하여 복호화하면
+  // user의 ID가 나오는데 그 ID와 cookie의 토큰으로 DB에서 유저를 찾은 후
+  // 유저가 있으면 인증 ok
+
+  jwt.verify(token, "secret", (err, decode) => {
+    if (err) return cb(err);
+
+    user.findOne({ _id: decode, token: token }).exec((err, user) => {
       if (err) return cb(err);
       cb(null, user);
     });

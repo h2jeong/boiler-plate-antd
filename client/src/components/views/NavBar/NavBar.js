@@ -7,7 +7,10 @@ const { Header } = Layout;
 
 function NavBar() {
   return (
-    <Header className="header">
+    <Header
+      className="header"
+      style={{ position: "fixed", zIndex: 1, width: "100%" }}
+    >
       <div
         className="logo"
         style={{

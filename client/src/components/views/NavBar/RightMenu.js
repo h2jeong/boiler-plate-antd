@@ -7,10 +7,10 @@ function RightMenu() {
   return (
     <Menu theme="dark" mode="horizontal" className="menu_header menu_user">
       <Menu.Item key="mail">
-        <a href>Signin</a>
+        <a href="/login">Signin</a>
       </Menu.Item>
       <Menu.Item key="app">
-        <a href>Signup</a>
+        <a href="/register">Signup</a>
       </Menu.Item>
     </Menu>
   );

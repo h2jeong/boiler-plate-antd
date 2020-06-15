@@ -1,32 +1,18 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { Layout, Menu } from "antd";
+import { Layout } from "antd";
 import RegisterPage from "./views/RegisterPage/RegisterPage";
 import LandingPage from "./views/LandingPage/LandingPage";
 import LoginPage from "./views/LoginPage/LoginPage";
+import NavBar from "./views/NavBar/NavBar";
 
-const { Header, Content, Footer } = Layout;
+const { Content, Footer } = Layout;
 
 function App() {
   return (
     <Layout>
-      <Header style={{ position: "fixed", zIndex: 1, width: "100%" }}>
-        <Menu theme="dark" mode="horizontal" defaultSelectedKeys={["1"]}>
-          <Menu.Item key="1">
-            <a href="/">Home</a>
-          </Menu.Item>
-          <Menu.Item key="2">Subscription</Menu.Item>
-
-          <Menu.Item key="3">
-            <a href="/login">Sign in</a>
-          </Menu.Item>
-          <Menu.Item key="4">
-            <a href="/register">Sign up</a>
-          </Menu.Item>
-        </Menu>
-      </Header>
-
+      <NavBar />
       <Content
         className="site-layout"
         style={{ padding: "0 50px", marginTop: 114 }}
