@@ -8,22 +8,50 @@ router.post("/register", (req, res) => {
   console.log(req.body, user);
 
   user.save((err, doc) => {
-    if (err) return res.status(400).json({ success: false, err });
-    return res.status(200).json({ success: true });
+    if (err) return res.status(400).json({ registerSuccess: false, err });
+    return res.status(200).json({ registerSuccess: true });
   });
 });
 
 router.post("/login", (req, res) => {
   // 아이디가 존재하는지, 비밀번호가 맞는지, 토큰을 생성하여 응답해준다.
-  // 비밀번호 비교
-  // plainPassword 1234567 암호화된 비밀번호 $2b$10$X/DS6vCsugMFQhQ1x/RvcOXwnpm5KIhRPo19LEnYhiGSFK1mSOjlu
-  //bcrypt.compare(myPlaintextPassword, hash, function(err, result) {
-  // // result == true or false
-  // });
-  // 토큰생성
-  //jsonwebtoken을 이용하여 token 생성하기, 데이터베이스의 _id로 생성
-  // 스키마에 넣어주기
-  // 토큰을 저장한다. 어디에? 스토리지 : 쿠키, 로컬스토리지
+  User.findOne({ email: req.body.email }).exec((err, user) => {
+    if (err) return res.status(400).json({ loginSuccess: false, err });
+    if (!user)
+      return res.json({
+        loginSuccess: false,
+        message: "User by this email does not exist"
+      });
+
+    console.log("user:", user);
+    // 비밀번호 비교, but hash와 비교 불가
+    // if(user.password === req.body.password)
+
+    // plainPassword 1234567 암호화된 비밀번호 $2b$10$X/DS6vCsugMFQhQ1x/RvcOXwnpm5KIhRPo19LEnYhiGSFK1mSOjlu
+    // bcrypt.compare(myPlaintextPassword, hash, function(err, result) {
+    // // result == true or false
+    // });
+    // => user model에서 메소드 생성하여 처리
+    user.comparePassword(req.body.password, (err, isMatch) => {
+      if (err) return res.json({ loginSuccess: false, err });
+      if (!isMatch)
+        return res.json({ loginSuccess: false, message: "Wrong password" });
+
+      // 토큰생성
+      // jsonwebtoken을 이용하여 token 생성하기, 데이터베이스의 _id로 생성
+      // 스키마에 넣어주기 => user model에서 메소드 생성하여 처리
+      user.generateToken((err, user) => {
+        if (err) return res.status(400).json({ loginSuccess: false, err });
+        // 토큰과 유효기간을 저장한다. 어디에? 스토리지 : 쿠키, 로컬스토리지
+        // res.cookie('name', token)
+
+        res
+          .cookie("w_auth", user.token, { maxAge: 60 * 60 * 60 })
+          .status(200)
+          .json({ loginSuccess: true, userId: user._id });
+      });
+    });
+  });
 });
 
 router.post("/logout", (req, res) => {

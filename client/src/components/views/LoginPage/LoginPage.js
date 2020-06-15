@@ -1,10 +1,19 @@
 import React from "react";
 import { Form, Input, Button, Checkbox } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
+import axios from "axios";
 
-function LoginPage() {
+function LoginPage(props) {
   const onFinish = values => {
     // console.log("Success:", values);
+    axios.post("/api/users/login", values).then(res => {
+      console.log(res.data);
+      if (res.data.loginSuccess) {
+        props.history.push("/");
+      } else {
+        alert("Failed to Log In. ", res.data.err);
+      }
+    });
   };
 
   return (

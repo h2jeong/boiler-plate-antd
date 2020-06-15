@@ -28,11 +28,11 @@ const tailFormItemLayout = {
 function RegisterPage(props) {
   const [form] = Form.useForm();
   const onFinish = values => {
-    console.log("Received values of form: ", values);
+    // console.log("Received values of form: ", values);
     axios.post("/api/users/register", values).then(res => {
       console.log(res.data);
-      if (res.data.success) {
-        props.history.push("/");
+      if (res.data.registerSuccess) {
+        props.history.push("/login");
       } else {
         alert("Failed to Register. ", res.data.err);
       }
