@@ -5,6 +5,7 @@ import { Avatar, Col, Row } from "antd";
 import Title from "antd/lib/typography/Title";
 
 import axios from "axios";
+import { withRouter } from "react-router-dom";
 
 function LandingPage(props) {
   const handleLogout = () => {
@@ -52,4 +53,4 @@ function LandingPage(props) {
   );
 }
 
-export default LandingPage;
+export default withRouter(LandingPage);

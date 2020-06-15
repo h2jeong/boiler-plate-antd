@@ -6,6 +6,7 @@ import RegisterPage from "./views/RegisterPage/RegisterPage";
 import LandingPage from "./views/LandingPage/LandingPage";
 import LoginPage from "./views/LoginPage/LoginPage";
 import NavBar from "./views/NavBar/NavBar";
+import Auth from "../hoc/auth";
 
 const { Content, Footer } = Layout;
 
@@ -29,9 +30,9 @@ function App() {
         >
           <BrowserRouter>
             <Switch>
-              <Route exact path="/" component={LandingPage} />
-              <Route path="/register" component={RegisterPage} />
-              <Route path="/login" component={LoginPage} />
+              <Route exact path="/" component={Auth(LandingPage, null)} />
+              <Route path="/register" component={Auth(RegisterPage, false)} />
+              <Route path="/login" component={Auth(LoginPage, false)} />
             </Switch>
           </BrowserRouter>
         </div>

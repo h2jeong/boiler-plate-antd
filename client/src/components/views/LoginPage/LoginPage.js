@@ -2,12 +2,13 @@ import React from "react";
 import { Form, Input, Button, Checkbox } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import axios from "axios";
+import { withRouter } from "react-router-dom";
 
 function LoginPage(props) {
   const onFinish = values => {
     // console.log("Success:", values);
     axios.post("/api/users/login", values).then(res => {
-      console.log(res.data);
+      //console.log(res.data);
       if (res.data.loginSuccess) {
         props.history.push("/");
       } else {
@@ -71,4 +72,4 @@ function LoginPage(props) {
   );
 }
 
-export default LoginPage;
+export default withRouter(LoginPage);

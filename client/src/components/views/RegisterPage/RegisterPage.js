@@ -2,6 +2,7 @@ import React from "react";
 import { Form, Input, Tooltip, Row, Col, Button } from "antd";
 import { QuestionCircleOutlined } from "@ant-design/icons";
 import axios from "axios";
+import { withRouter } from "react-router-dom";
 
 const formItemLayout = {
   labelCol: {
@@ -30,7 +31,7 @@ function RegisterPage(props) {
   const onFinish = values => {
     // console.log("Received values of form: ", values);
     axios.post("/api/users/register", values).then(res => {
-      console.log(res.data);
+      // console.log(res.data);
       if (res.data.registerSuccess) {
         props.history.push("/login");
       } else {
@@ -165,4 +166,4 @@ function RegisterPage(props) {
   );
 }
 
-export default RegisterPage;
+export default withRouter(RegisterPage);
