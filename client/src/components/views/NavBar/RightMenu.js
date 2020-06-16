@@ -34,7 +34,9 @@ function RightMenu(props) {
     return (
       <Menu theme="dark" mode="horizontal" className="menu_header menu_user">
         <Menu.Item key="create">
-          <UploadOutlined />
+          <a href="/video/upload">
+            <UploadOutlined />
+          </a>
         </Menu.Item>
         <Menu.Item key="app">
           <span onClick={handleLogout}>Signout</span>
