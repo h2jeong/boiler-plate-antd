@@ -14,22 +14,26 @@ export default function(SpecificComponent, option, adminRoute = null) {
 
     useEffect(() => {
       // axios.get("/api/users/auth").then(res => {
-      dispatch(authUser()).then(res => {
-        const { isAuth, isAdmin } = res.payload;
-        console.log("res.payload:", res.payload);
+      dispatch(authUser())
+        .then(async res => {
+          const { isAuth, isAdmin } = res.payload;
+          console.log("res.payload:", res.payload);
 
-        if (!isAuth) {
-          if (option) props.history.push("/login");
-        } else {
-          if (option === false) {
-            props.history.push("/");
+          if (await !isAuth) {
+            if (option) props.history.push("/login");
+          } else {
+            if (option === false) {
+              props.history.push("/");
+            }
+            if (adminRoute && !isAdmin) {
+              props.history.push("/");
+            }
           }
-          if (adminRoute && !isAdmin) {
-            props.history.push("/");
-          }
-        }
-      });
-    }, [props.history]);
+        })
+        .catch(err => {
+          console.log("auth error:", err);
+        });
+    }, [props.history, dispatch]);
 
     return <SpecificComponent {...props} />;
   }

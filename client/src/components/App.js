@@ -37,7 +37,7 @@ function App() {
           </div>
         </Content>
         <Footer style={{ textAlign: "center" }}>
-          Ant Design ©2018 Created by Ant UED
+          ©2020 Created by ZOE. https://github.com/h2jeong/boiler-plate-antd
         </Footer>
       </Layout>
     </BrowserRouter>
