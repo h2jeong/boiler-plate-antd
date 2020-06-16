@@ -25,9 +25,7 @@ function NavBar() {
         <Menu.Item key="mail">
           <a href="/">Home</a>
         </Menu.Item>
-        <Menu.Item key="subscription">
-          <a href>Subscription</a>
-        </Menu.Item>
+        <Menu.Item key="subscription">Subscription</Menu.Item>
       </Menu>
       <RightMenu />
     </Header>

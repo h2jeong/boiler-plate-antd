@@ -1,10 +1,29 @@
-import Axios from "axios";
-export const LOGIN_USER = "LOGIN_USER";
+import axios from "axios";
 export const REGISTER_USER = "REGISTER_USER";
+export const LOGIN_USER = "LOGIN_USER";
 export const AUTH_USER = "AUTH_USER";
 
-export function loginUser(dataToSubmit) {}
+export function registerUser(dataToSubmit) {
+  const request = axios.post("/api/users/register", dataToSubmit).then(res => {
+    console.log(res.data);
+    return res.data;
+  });
 
-export function registerUser(dataToSubmit) {}
+  return { type: REGISTER_USER, payload: request };
+}
 
-export function authUser() {}
+export function loginUser(dataToSubmit) {
+  const request = axios.post("/api/users/login", dataToSubmit).then(res => {
+    return res.data;
+  });
+
+  return { type: LOGIN_USER, payload: request };
+}
+
+export function authUser() {
+  const request = axios.get("/api/users/auth").then(res => {
+    return res.data;
+  });
+
+  return { type: AUTH_USER, payload: request };
+}

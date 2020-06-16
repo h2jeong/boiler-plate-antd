@@ -1,15 +1,20 @@
 import React from "react";
 import { Form, Input, Button, Checkbox } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
-import axios from "axios";
+// import axios from "axios";
 import { withRouter } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { loginUser } from "../../../_actions/user_actions";
 
 function LoginPage(props) {
+  const dispatch = useDispatch();
+
   const onFinish = values => {
     // console.log("Success:", values);
-    axios.post("/api/users/login", values).then(res => {
+    // axios.post("/api/users/login", values).then(res => {
+    dispatch(loginUser(values)).then(res => {
       //console.log(res.data);
-      if (res.data.loginSuccess) {
+      if (res.payload.loginSuccess) {
         props.history.push("/");
       } else {
         alert("Failed to Log In. ", res.data.err);

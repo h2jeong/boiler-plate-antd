@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useEffect } from "react";
+// import axios from "axios";
+import { useDispatch } from "react-redux";
+import { authUser } from "../_actions/user_actions";
 
 export default function(SpecificComponent, option, adminRoute = null) {
   function AuthenticationCheck(props) {
@@ -8,13 +10,13 @@ export default function(SpecificComponent, option, adminRoute = null) {
     // adminRoute - null, true, false
     // 가져온 상태를 가지고 분기 처리를 해준다.
     // 로그인/로그아웃 ? 옵션 값 확인 ? 어드민 루트와 어드민 상태 확인
-    const [User, setUser] = useState({});
+    const dispatch = useDispatch();
 
     useEffect(() => {
-      axios.get("/api/users/auth").then(res => {
-        const { user, isAuth, isAdmin } = res.data;
-        console.log("user:", user);
-        setUser(user);
+      // axios.get("/api/users/auth").then(res => {
+      dispatch(authUser()).then(res => {
+        const { isAuth, isAdmin } = res.payload;
+        console.log("res.payload:", res.payload);
 
         if (!isAuth) {
           if (option) props.history.push("/login");
@@ -29,7 +31,7 @@ export default function(SpecificComponent, option, adminRoute = null) {
       });
     }, [props.history]);
 
-    return <SpecificComponent {...props} user={User} />;
+    return <SpecificComponent {...props} />;
   }
 
   return AuthenticationCheck;

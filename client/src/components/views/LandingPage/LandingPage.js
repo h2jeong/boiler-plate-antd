@@ -4,20 +4,9 @@ import Meta from "antd/lib/card/Meta";
 import { Avatar, Col, Row } from "antd";
 import Title from "antd/lib/typography/Title";
 
-import axios from "axios";
 import { withRouter } from "react-router-dom";
 
 function LandingPage(props) {
-  const handleLogout = () => {
-    axios.post("/api/users/logout").then(res => {
-      if (res.data.success) {
-        props.history.push("/login");
-      } else {
-        alert("Failed to Logout");
-      }
-    });
-  };
-
   const Videos = [];
   const renderCards = Videos.map((video, idx) => {
     return (
@@ -43,9 +32,6 @@ function LandingPage(props) {
 
   return (
     <div style={{ width: "85%", margin: "3rem auto" }}>
-      <button type="button" onClick={handleLogout}>
-        Logout
-      </button>
       <Title level={2}>Recomanded</Title>
       <hr />
       <Row gutter={[32, 16]}>{renderCards}</Row>

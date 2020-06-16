@@ -4,11 +4,26 @@ import "./index.css";
 import "antd/dist/antd.css";
 import App from "./components/App";
 import * as serviceWorker from "./serviceWorker";
+import { createStore, applyMiddleware, compose } from "redux";
+import reduxPromise from "redux-promise";
+import reduxThunk from "redux-thunk";
+import rootReducer from "./_reducers";
+import { Provider } from "react-redux";
+const devTools =
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__();
+
+const store = createStore(
+  rootReducer,
+  compose(
+    applyMiddleware(reduxPromise, reduxThunk),
+    devTools
+  )
+);
 
 ReactDOM.render(
-  <React.Fragment>
+  <Provider store={store}>
     <App />
-  </React.Fragment>,
+  </Provider>,
   document.getElementById("root")
 );
 

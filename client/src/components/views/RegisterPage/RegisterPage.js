@@ -1,8 +1,10 @@
 import React from "react";
 import { Form, Input, Tooltip, Row, Col, Button } from "antd";
 import { QuestionCircleOutlined } from "@ant-design/icons";
-import axios from "axios";
+// import axios from "axios";
 import { withRouter } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { registerUser } from "../../../_actions/user_actions";
 
 const formItemLayout = {
   labelCol: {
@@ -27,12 +29,15 @@ const tailFormItemLayout = {
   }
 };
 function RegisterPage(props) {
+  const dispatch = useDispatch();
+
   const [form] = Form.useForm();
   const onFinish = values => {
     // console.log("Received values of form: ", values);
-    axios.post("/api/users/register", values).then(res => {
-      // console.log(res.data);
-      if (res.data.registerSuccess) {
+    // axios.post("/api/users/register", values).then(res => {
+    dispatch(registerUser(values)).then(res => {
+      console.log(res);
+      if (res.payload.registerSuccess) {
         props.history.push("/login");
       } else {
         alert("Failed to Register. ", res.data.err);
